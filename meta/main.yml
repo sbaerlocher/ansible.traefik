@@ -2,15 +2,11 @@
 
 galaxy_info:
   role_name: traefik
-  author:
-  description:
-  company:
+  author: Simon Baerlocher <sbaerlocher@sbaerlocher.ch>
+  description: Installs and configures traefik as a docker container on a Linux docker environment.
   license: MIT
-  min_ansible_version: 2
+  min_ansible_version: 2.7
   platforms:
-    - name: Archlinux
-      versions:
-        - all
     - name: EL
       versions:
         - 5
@@ -30,6 +26,10 @@ galaxy_info:
       versions:
         - wheezy
 
-  galaxy_tags: []
+  galaxy_tags:
+    - docker
+    - traefik
+    - container
+    - proxy
 
 dependencies: []

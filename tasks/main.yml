@@ -1,38 +1,56 @@
 ---
 # tasks file for sbaerlocher.traefik
 
-- name: add OS specific variables
-  include_vars: "{{ loop_vars }}"
-  with_first_found:
-    - files:
-        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-        - "{{ ansible_distribution }}.yml"
-        - "{{ ansible_os_family }}.yml"
-        - "{{ ansible_system }}.yml"
-        - "defaults.yml"
-      paths:
-        - "vars"
-  loop_control:
-    loop_var: loop_vars
+- name: create traefik network
+  docker_network:
+    name: "{{ traefik_network }}"
+    ipam_options:
+      subnet: '172.16.1.0/24'
+      gateway: '172.16.1.1'
+      iprange: '172.16.1.0/24'
   tags:
     - configuration
-    - packages
 
-- name: include distribution tasks
-  include_tasks: "{{ loop_distribution }}"
-  with_first_found:
-    - files:
-        - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-        - "{{ ansible_distribution }}.yml"
-        - "{{ ansible_os_family }}.yml"
-        - "{{ ansible_system }}.yml"
-        - "defaults.yml"
-      paths:
-        - "distribution"
-  loop_control:
-    loop_var: loop_distribution
+- name: create traefik directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: docker
+    mode: 0550
+  with_items:
+    - /etc/traefik
   tags:
     - configuration
-    - packages
+
+- name: configuration traefik
+  template:
+    src: "traefik.toml.j2"
+    dest: "/etc/traefik/traefik.toml"
+    owner: root
+    group: docker
+    mode: 0550
+  notify:
+    - restart proxy_1
+  tags:
+    - configuration
+
+- name: start traefik
+  docker_container:
+    name: proxy_1
+    image: traefik
+    restart_policy: unless-stopped
+    published_ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/traefik/traefik.toml:/etc/traefik/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+      - traefik-data:/etc/traefik
+    capabilities:
+      - net_bind_service
+    networks:
+      - name: "{{ traefik_network }}"
+  tags:
+    - configuration
