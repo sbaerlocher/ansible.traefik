@@ -1,2 +1,7 @@
 ---
 # handlers file for sbaerlocher.traefik
+
+- name: restart proxy_1
+  docker_container:
+    name: proxy_1
+    restart: true

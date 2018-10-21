@@ -1,2 +1,27 @@
 ---
 # defaults file for sbaerlocher.traefik
+
+traefik_sendanonymoususage: false
+traefik_debug: false
+traefik_dir: /etc/traefik
+traefik_hostname: "{{ inventory_hostname }}"
+traefik_https: false
+traefik_https_redirect: false
+traefik_log_level: ERROR
+traefik_network: traefik_default
+traefik_api: false
+traefik_api_url: "{{ traefik_hostname }}"
+traefik_ping: false
+
+# traefik_file:
+#  api:
+#    backend:
+#      url: "http://127.0.0.1:8080"
+#    frontend:
+#      rule: "Host:{{ traefik_api_url | lower() }}"
+#      whitelist:
+#  ping:
+#    backend:
+#      url: "http://127.0.0.1:8081"
+#    frontend:
+#      rule: "Host:{{ traefik_api_url | lower() }};Path:/ping"
