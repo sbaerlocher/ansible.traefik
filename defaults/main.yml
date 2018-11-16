@@ -12,6 +12,9 @@ traefik_network: traefik_default
 traefik_api: false
 traefik_api_url: "{{ traefik_hostname }}"
 traefik_ping: false
+traefik_acme: false
+traefik_ondemand: false
+traefik_onhostrule: false
 
 # traefik_file:
 #  api:
