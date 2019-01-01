@@ -2,6 +2,7 @@
 # tasks file for sbaerlocher.traefik
 
 - name: create traefik network
+  become: true
   docker_network:
     name: "{{ traefik_network }}"
     ipam_options:
@@ -12,6 +13,7 @@
     - configuration
 
 - name: create traefik directory
+  become: true
   file:
     path: "{{ item }}"
     state: directory
@@ -24,6 +26,7 @@
     - configuration
 
 - name: configuration traefik
+  become: true
   template:
     src: "traefik.toml.j2"
     dest: "/etc/traefik/traefik.toml"
@@ -36,6 +39,7 @@
     - configuration
 
 - name: start traefik
+  become: true
   docker_container:
     name: proxy_1
     image: traefik
@@ -43,6 +47,9 @@
     published_ports:
       - "80:80"
       - "443:443"
+ #   env:
+ #     CF_API_EMAIL: "{{ traefik_dnschallenge_env.CF_API_EMAIL }}"
+ #     CF_API_KEY: "{{ traefik_dnschallenge_env.CF_API_KEY }}"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/traefik/traefik.toml:/etc/traefik/traefik.toml
