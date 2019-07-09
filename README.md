@@ -1,6 +1,6 @@
 # Ansible Role: traefik
 
-[![Build Status](https://travis-ci.org/sbaerlocher/ansible.traefik.svg?branch=master)](https://travis-ci.org/sbaerlocher/ansible.traefik) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://sbaerlo.ch/licence) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-traefik-blue.svg)](https://galaxy.ansible.com/sbaerlocher/traefik)
+[![Build Status](https://travis-ci.org/sbaerlocher/ansible.traefik.svg?branch=master)](https://travis-ci.org/sbaerlocher/ansible.traefik) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://sbaerlo.ch/licence) [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-traefik-blue.svg)](https://galaxy.ansible.com/sbaerlocher/traefik)
 
 ## Description
 
