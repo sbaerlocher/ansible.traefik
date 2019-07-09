@@ -55,7 +55,7 @@ sendAnonymousUsage = {{ traefik_sendanonymoususage }}
 {% if traefik_https and traefik_acme %}
 [acme]
 email = "{{ traefik_acme_email }}"
-storage = "traefik/acme/account"
+storage = "acme.json"
 {% if traefik_ondemand %}
 onDemand = true
 {% endif %}
