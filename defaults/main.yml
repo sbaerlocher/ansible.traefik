@@ -15,6 +15,7 @@ traefik_ping: false
 traefik_acme: false
 traefik_ondemand: false
 traefik_onhostrule: false
+traefik_loglevel: 'ERROR'
 
 traefik_network_ipam:
   subnet: '172.16.1.0/24'
