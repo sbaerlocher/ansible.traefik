@@ -42,7 +42,7 @@
   become: true
   docker_container:
     name: proxy_1
-    image: traefik
+    image: 'traefik:v1.7.14'
     restart_policy: unless-stopped
     published_ports:
       - '80:80'
