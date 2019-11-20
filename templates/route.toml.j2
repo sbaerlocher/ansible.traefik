@@ -1,0 +1,28 @@
+[http]
+
+[http.services]
+{% for key, value in traefik_file.iteritems() %}
+    [[http.services.{{ key }}.loadBalancer.servers]]
+        url = "{{ value.backend.url }}"
+{% endfor %}
+
+[http.routers]
+{% for key, value in traefik_file.iteritems() %}
+    [http.routers.{{ key }}]
+        entryPoints = ["http", "https" ]
+        service = "{{ key }}"
+        {% if value.frontend.whitelist is defined %}
+        middlewares = ["{{ key }}"]
+        {% endif %}
+        rule = "{{ value.frontend.rule }}"
+        [http.routers.{{ key }}.tls]
+{% endfor %}
+
+
+[http.middlewares]
+{% for key, value in traefik_file.iteritems() %}
+      {% if value.frontend.whitelist is defined %}
+    [http.middlewares.{{ key }}.ipWhiteList]
+      sourceRange = [{% for range in value.frontend.whitelist %}"{{ range }}"{% if not loop.last %},{% endif %}{% endfor %}]
+      {% endif %}
+{% endfor %}

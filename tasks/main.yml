@@ -28,13 +28,16 @@
 - name: configuration traefik
   become: true
   template:
-    src: 'traefik.toml.j2'
-    dest: '/etc/traefik/traefik.toml'
+    src: '{{ item }}.toml.j2'
+    dest: '/etc/traefik/{{ item }}.toml'
     owner: root
     group: docker
     mode: 0550
   notify:
     - restart proxy_1
+  with_items:
+    - route
+    - traefik
   tags:
     - configuration
 
@@ -47,14 +50,14 @@
     published_ports:
       - '80:80'
       - '443:443'
-    #   env:
-    #     CF_API_EMAIL: "{{ traefik_dnschallenge_env.CF_API_EMAIL }}"
-    #     CF_API_KEY: "{{ traefik_dnschallenge_env.CF_API_KEY }}"
+    #   - '8080:8080'
+    labels: traefik.enable=false
     volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/traefik/traefik.toml:/etc/traefik/traefik.toml
-      - /var/run/docker.sock:/var/run/docker.sock
-      - traefik-data:/etc/traefik
+      - '/etc/localtime:/etc/localtime:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - '/etc/traefik/traefik.toml:/etc/traefik/traefik.toml'
+      - '/etc/traefik/route.toml:/etc/traefik/route.toml'
+      - 'traefik-data:/etc/traefik'
     capabilities:
       - net_bind_service
     networks:
