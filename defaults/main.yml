@@ -18,9 +18,9 @@ traefik_onhostrule: false
 traefik_loglevel: 'ERROR'
 
 traefik_network_ipam:
-  subnet: '172.16.1.0/24'
-  gateway: '172.16.1.1'
-  iprange: '172.16.1.0/24'
+  subnet: '172.16.2.0/24'
+  gateway: '172.16.2.1'
+  iprange: '172.16.2.0/24'
 # traefik_file:
 #  api:
 #    backend:
