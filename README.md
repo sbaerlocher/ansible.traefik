@@ -12,6 +12,14 @@ Installs and configures traefik as a docker container on a Linux docker environm
 ansible-galaxy install sbaerlocher.traefik
 ```
 
+## Use your own Traefik configuration template
+
+Although the template packaged with this role can be configured using variables, you may want to use your own Traefik configuration file:
+
+1. Create a `templates` directory at your playbook level
+2. Create a `templates\traefik-conf.toml.j2` file (choose a different name from the default template `traefik.toml.j2`)
+3. Set the var `traefik_configuration_template` to `traefik-conf.toml.j2` in your playbook
+
 ## Requirements
 
 None
@@ -30,6 +38,7 @@ None
 | traefik_network | traefik_default | |
 | traefik_api | false | |
 | traefik_ping | false | |
+| traefik_configuration_file | default provided | |
 
 ## Dependencies
 
