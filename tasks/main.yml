@@ -4,18 +4,18 @@
 - name: create traefik network
   become: true
   docker_network:
-    name: "{{ traefik_network }}"
-    ipam_options:
-      subnet: '172.16.1.0/24'
-      gateway: '172.16.1.1'
-      iprange: '172.16.1.0/24'
+    name: '{{ traefik_network }}'
+    ipam_config:
+      - subnet: '{{ traefik_network_ipam.subnet }}'
+        gateway: '{{ traefik_network_ipam.gateway }}'
+        iprange: '{{ traefik_network_ipam.iprange }}'
   tags:
     - configuration
 
 - name: create traefik directory
   become: true
   file:
-    path: "{{ item }}"
+    path: '{{ item }}'
     state: directory
     owner: root
     group: docker
@@ -45,11 +45,11 @@
     image: traefik
     restart_policy: unless-stopped
     published_ports:
-      - "80:80"
-      - "443:443"
- #   env:
- #     CF_API_EMAIL: "{{ traefik_dnschallenge_env.CF_API_EMAIL }}"
- #     CF_API_KEY: "{{ traefik_dnschallenge_env.CF_API_KEY }}"
+      - '80:80'
+      - '443:443'
+    #   env:
+    #     CF_API_EMAIL: "{{ traefik_dnschallenge_env.CF_API_EMAIL }}"
+    #     CF_API_KEY: "{{ traefik_dnschallenge_env.CF_API_KEY }}"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/traefik/traefik.toml:/etc/traefik/traefik.toml
@@ -58,6 +58,7 @@
     capabilities:
       - net_bind_service
     networks:
-      - name: "{{ traefik_network }}"
+      - name: '{{ traefik_network }}'
+    networks_cli_compatible: false
   tags:
     - configuration
