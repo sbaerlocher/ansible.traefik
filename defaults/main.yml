@@ -15,6 +15,7 @@ traefik_ping: false
 traefik_acme: false
 traefik_ondemand: false
 traefik_onhostrule: false
+traefik_configuration_template: 'traefik.toml.j2'
 
 # traefik_file:
 #  api:
