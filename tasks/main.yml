@@ -20,8 +20,10 @@
     owner: root
     group: docker
     mode: 0550
-  with_items:
-    - /etc/traefik
+  loop:
+    - "{{ traefik_dir }}"
+  loop_control:
+    label: "{{ item }}"
   tags:
     - configuration
 
@@ -29,7 +31,7 @@
   become: true
   template:
     src: "{{ traefik_configuration_template }}"
-    dest: "/etc/traefik/traefik.toml"
+    dest: "{{ traefik_dir }}/traefik.toml"
     owner: root
     group: docker
     mode: 0550
@@ -52,7 +54,7 @@
     #     CF_API_KEY: "{{ traefik_dnschallenge_env.CF_API_KEY }}"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /etc/traefik/traefik.toml:/etc/traefik/traefik.toml
+      - "{{ traefik_dir }}/traefik.toml:/etc/traefik/traefik.toml"
       - /var/run/docker.sock:/var/run/docker.sock
       - traefik-data:/etc/traefik
     capabilities:
