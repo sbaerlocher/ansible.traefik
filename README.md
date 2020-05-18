@@ -38,7 +38,7 @@ None
 | traefik_network | traefik_default | |
 | traefik_api | false | |
 | traefik_ping | false | |
-| traefik_configuration_file | default provided | |
+| traefik_configuration_template | default provided | |
 
 ## Dependencies
 
