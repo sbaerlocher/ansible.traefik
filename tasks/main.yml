@@ -28,8 +28,8 @@
 - name: configuration traefik
   become: true
   template:
-    src: 'traefik.toml.j2'
-    dest: '/etc/traefik/traefik.toml'
+    src: "{{ traefik_configuration_template }}"
+    dest: "/etc/traefik/traefik.toml"
     owner: root
     group: docker
     mode: 0550
