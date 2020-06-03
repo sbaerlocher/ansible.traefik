@@ -1,6 +1,6 @@
 # Ansible Role: traefik
 
-[![Build Status](https://travis-ci.org/sbaerlocher/ansible.traefik.svg?branch=master)](https://travis-ci.org/sbaerlocher/ansible.traefik) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://sbaerlo.ch/licence) [![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-traefik-blue.svg)](https://galaxy.ansible.com/sbaerlocher/traefik)
+This Ansible Role is deprecated, please migrate to [arillso.traefik](https://github.com/arillso/ansible.traefik) role, more detailed information about migrating can be found at [Link](https://github.com/arillso/ansible.traefik#compatibility-with--sbaerlocheransibletraefik)
 
 ## Description
 
@@ -18,18 +18,18 @@ None
 
 ## Role Variables
 
-| Variable             | Default     | Comments (type)                                   |
-| :---                 | :---        | :---                                              |
-| traefik_sendanonymoususage | false | |
-| traefik_debug | false | |
-| traefik_dir | /etc/traefik | |
-| traefik_hostname | "{{ inventory_hostname }}" | |
-| traefik_https | false | |
-| traefik_https_redirect | false | |
-| traefik_log_level | ERROR | |
-| traefik_network | traefik_default | |
-| traefik_api | false | |
-| traefik_ping | false | |
+| Variable                   | Default                    | Comments (type) |
+| :------------------------- | :------------------------- | :-------------- |
+| traefik_sendanonymoususage | false                      |                 |
+| traefik_debug              | false                      |                 |
+| traefik_dir                | /etc/traefik               |                 |
+| traefik_hostname           | "{{ inventory_hostname }}" |                 |
+| traefik_https              | false                      |                 |
+| traefik_https_redirect     | false                      |                 |
+| traefik_log_level          | ERROR                      |                 |
+| traefik_network            | traefik_default            |                 |
+| traefik_api                | false                      |                 |
+| traefik_ping               | false                      |                 |
 
 ## Dependencies
 
@@ -40,18 +40,18 @@ None
 ```yml
 - hosts: all
   roles:
-     - sbaerlocher.traefik
+    - sbaerlocher.traefik
 ```
 
 ## Changelog
 
 ### 1.0.0
 
-* inital commit
+- inital commit
 
 ## Author
 
-* [Simon Bärlocher](https://sbaerlocher.ch)
+- [Simon Bärlocher](https://sbaerlocher.ch)
 
 ## License
 
